@@ -4,6 +4,7 @@ import { round } from 'lodash';
 
 import { Container, Tabs } from '@mantine/core';
 
+import { useAddFoodToDietPlanMutation } from 'shared/api';
 import { useQueryParams, useSetTabToQuery } from 'shared/hook';
 import { IDietPlan, IPortion, Nullable, Nutrients } from 'shared/types';
 import { a11yProps } from 'shared/utils';
@@ -102,19 +103,27 @@ export const DietPlanComposition: FC<Props> = ({ diet }) => {
       (acc, current) => ({
         ...acc,
         proteins: acc.proteins + current.proteins,
+        proteinsG: acc.proteins + current.proteins,
         fats: acc.fats + current.fats,
+        fatsG: acc.fats + current.fats,
         carbs: acc.carbs + current.carbs,
+        carbsG: acc.carbs + current.carbs,
         calories: acc.calories + current.calories,
       }),
       {
         proteins: 0,
+        proteinsG: 0,
         fats: 0,
+        fatsG: 0,
         carbs: 0,
+        carbsG: 0,
         calories: 0,
       },
     );
 
   const rating = calcRating(diet.userId.config.targets.targetStat, fact);
+
+  const [addFood] = useAddFoodToDietPlanMutation();
 
   return (
     <Container p={0}>
@@ -154,6 +163,8 @@ export const DietPlanComposition: FC<Props> = ({ diet }) => {
         setOpenDrawer={setOpenDialog}
         day={currentDay}
         meals={diet.meals}
+        addFood={addFood}
+        isDiary={false}
       />
     </Container>
   );

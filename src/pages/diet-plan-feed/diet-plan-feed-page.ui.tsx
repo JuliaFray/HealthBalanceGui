@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import { Alert, Grid } from '@mui/material';
+import { Alert } from '@mui/material';
+
+import { Grid } from '@mantine/core';
 
 import { DietsFeed } from 'widgets/diet';
 
@@ -47,11 +49,10 @@ const DietPage: React.FC<TPostPage> = React.memo(({ isMainPage, userId, isOwner,
   }
 
   return (
-    <Grid container spacing={2} width='100%' style={{ margin: 0, padding: 0 }}>
-      <Grid item md={mdMain} width='100%' style={{ margin: 0, padding: 0 }}>
+    <Grid>
+      <Grid.Col span={mdMain}>
         <DietsFeed
           isMainPage={isMainPage}
-          isFetching={isFetching}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
@@ -61,7 +62,7 @@ const DietPage: React.FC<TPostPage> = React.memo(({ isMainPage, userId, isOwner,
           dataLength={dataLength}
           setCurrentPage={setCurrentPage}
         />
-      </Grid>
+      </Grid.Col>
       {/* {isMainPage && <Grid item md={mdSide} className={styles.right}/>} */}
     </Grid>
   );

@@ -1,1 +1,1 @@
-export { DietDiarySettings } from './diet-diary-settings';
+export { DietDiarySettings } from './diet-diary-settings.ui';

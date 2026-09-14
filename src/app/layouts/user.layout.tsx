@@ -18,11 +18,10 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { MenuWidget } from 'widgets/menu-widget';
 
 import { useLastLocation } from 'shared/hook';
-import { ScrollToTop } from 'shared/ui';
-import { NotificationBlock } from 'shared/ui/notification-block';
+import { ScrollToTop, NotificationBlock } from 'shared/ui';
 
 import classes from './layout.module.scss';
-import { BrandLink, SignOutLink } from './layout.ui';
+import { BrandLink } from './layout.ui';
 
 export const UserLayout = () => {
   const [opened, { toggle, close }] = useDisclosure();
@@ -48,29 +47,29 @@ export const UserLayout = () => {
           <Group h='100%' px='md' justify='space-between'>
             <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' color='white' />
             {matches && <BrandLink />}
-            <NotificationBlock />
-            <Switch
-              size='md'
-              color='dark.4'
-              onLabel={
-                <SunIcon
-                  style={{ cursor: 'pointer' }}
-                  size={16}
-                  color='var(--mantine-color-yellow-4)'
-                />
-              }
-              offLabel={
-                <MoonStarsIcon
-                  style={{ cursor: 'pointer' }}
-                  size={16}
-                  color='var(--mantine-color-teal-6)'
-                />
-              }
-              onClick={toggleColorScheme}
-              style={{ right: '10em', position: 'absolute' }}
-            />
 
-            <SignOutLink />
+            <Group style={{ right: '0', position: 'absolute' }} m={10} gap={20}>
+              <NotificationBlock />
+              <Switch
+                size='md'
+                color='dark.4'
+                onLabel={
+                  <SunIcon
+                    style={{ cursor: 'pointer' }}
+                    size={16}
+                    color='var(--mantine-color-yellow-4)'
+                  />
+                }
+                offLabel={
+                  <MoonStarsIcon
+                    style={{ cursor: 'pointer' }}
+                    size={16}
+                    color='var(--mantine-color-teal-6)'
+                  />
+                }
+                onClick={toggleColorScheme}
+              />
+            </Group>
           </Group>
         </AppShell.Header>
 

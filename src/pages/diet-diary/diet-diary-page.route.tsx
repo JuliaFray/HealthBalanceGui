@@ -1,17 +1,17 @@
-import { createElement, lazy } from 'react';
+import React, { createElement, lazy } from 'react';
 
 import { RouteObject } from 'react-router-dom';
 
-import { compose, pathKeys, withSuspense } from 'shared/lib';
+import { Skeleton } from '@mantine/core';
 
-import { DietPlanFeedPageSkeleton } from '../diet-plan-feed/diet-plan-feed-page.skeleton';
+import { compose, pathKeys, withSuspense } from 'shared/lib';
 
 const DietDiaryPage = lazy(() =>
   import('./diet-diary-page.ui').then((module) => ({ default: module.DietDiaryPage })),
 );
 
 const enhance = compose((component) =>
-  withSuspense(component, { FallbackComponent: DietPlanFeedPageSkeleton }),
+  withSuspense(component, { FallbackComponent: () => <Skeleton visible /> }),
 );
 
 export const dietDiaryPageRoute: RouteObject = {

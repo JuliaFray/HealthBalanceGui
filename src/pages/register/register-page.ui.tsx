@@ -33,53 +33,52 @@ export const RegisterPage: FC = () => {
     <Stack style={{ display: 'flex' }}>
       <img
         alt='logo'
-        style={{ width: 500, alignSelf: 'center', marginBlock: '-120px' }}
+        style={{ width: '40em', alignSelf: 'center', marginBlock: '-10em' }}
         src={`${process.env.PUBLIC_URL}/TransparentLogo.png`}
       />
 
       <Paper classNames={{ root: styles.root }}>
-        <Box pos='relative'>
-          <LoadingOverlay
-            visible={isFetching}
-            zIndex={1000}
-            overlayProps={{ radius: 'sm', blur: 2 }}
-            loaderProps={{ color: 'teal', type: 'bars' }}
-          />
-          <Stack gap='sm'>
-            <Title classNames={{ root: styles.title }} order={3}>
-              Создать аккаунт
-            </Title>
+        <LoadingOverlay
+          visible={isFetching}
+          zIndex={1000}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+          loaderProps={{ color: 'teal', type: 'bars' }}
+        />
+        <Stack gap='sm'>
+          <Title classNames={{ root: styles.title }} order={3}>
+            Создать аккаунт
+          </Title>
 
-            <Formik
-              onSubmit={(values: RegisterDataType) => handleSubmit(values)}
-              validationSchema={validationSchema}
-              {...formikConfig}
-            >
-              {({ isValid }) => (
-                <Form onChange={handleOnChange}>
-                  <Stack gap='sm'>
-                    <InputWrapper name='login' label='Логин' />
-                    <InputWrapper name='email' label='Email' />
-                    <InputWrapper name='password' label='Пароль' mode='password' />
-                  </Stack>
+          <Formik
+            onSubmit={(values: RegisterDataType) => handleSubmit(values)}
+            validationSchema={validationSchema}
+            {...formikConfig}
+          >
+            {({ isValid }) => (
+              <Form onChange={handleOnChange}>
+                <Stack gap='sm'>
+                  <InputWrapper name='login' label='Логин' />
+                  <InputWrapper name='email' label='Email' />
+                  <InputWrapper name='password' label='Пароль' mode='password-check' />
 
                   <Button
                     type='submit'
                     size='compact-lg'
+                    mt={10}
                     disabled={!isValid || isFetching}
                     fullWidth
                   >
                     Зарегистрироваться
                   </Button>
-                </Form>
-              )}
-            </Formik>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
 
-            <Link className={styles.link} to={pathKeys.login()}>
-              Войти в аккаунт
-            </Link>
-          </Stack>
-        </Box>
+          <Link className={styles.link} to={pathKeys.login()}>
+            Войти в аккаунт
+          </Link>
+        </Stack>
       </Paper>
     </Stack>
   );

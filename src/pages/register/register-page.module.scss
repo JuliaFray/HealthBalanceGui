@@ -1,23 +1,18 @@
 @import "shared/themes/palette.module";
 
 .root {
-  width: 400px;
-  padding: 50px;
+  width: 40em;
+  padding: 5em;
   margin: 10% auto;
+  position: relative;
 
   .title {
     text-align: center !important;
     font-weight: bold !important;
   }
 
-  .avatar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-
   .link {
-    margin-top: 20px;
+    margin-top: 2em;
     display: flex;
     justify-content: center;
     color: $grey;
@@ -31,9 +26,7 @@
   .error {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
-    height: 20px;
-    padding: 20px;
-    color: $error;
+    height: 2em;
+    padding-bottom: 2em;
   }
 }

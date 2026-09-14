@@ -1,1 +1,1 @@
-export { SettingsAccordion } from './settings-accordion';
+export { SettingsAccordion } from './settings-accordion.ui';

@@ -1,6 +1,7 @@
-import { Nutrients, ProductItem } from 'shared/types/food.type';
+import { Nullable } from 'shared/types/general.type';
 
-import { IUser } from './profile.type';
+import { Nutrients, ProductItem } from './food.type';
+import { IUser, IUserWithTargets } from './profile.type';
 
 /** Приемы пищи */
 // eslint-disable-next-line no-shadow
@@ -23,38 +24,25 @@ export type MealsOptions =
 
 export interface IDietRingStat {
   label: string;
-  stat: string;
+  stat: Nullable<string>;
   progress: number;
   color: string;
   icon?: string;
 }
 
-// /** Статистика плана питания */
-// export interface IDietStat {
-//   calories: number;
-//   proteins: number;
-//   fats: number;
-//   carbs: number;
-//   otherNutrients?: Record<string, number>;
-// }
-//
-// /** Добавленное блюдо */
-// export interface IFood {
-//   _id: string;
-//   name: string;
-//   /** Показатели на 100г */
-//   statOn100: IDietStat;
-// }
-
 export interface IPortion {
+  /** Продукт питания */
   foodId: ProductItem;
+  /** Прием пищи и количество */
   portion: { meal: MealsOptions; weightG: number }[];
 }
 
 export interface IPlanByDay {
+  /** День плана */
   day: number;
   /** Рейтинг каждого дня */
   dayRating: number;
+  /** Записи еды */
   portions: IPortion[];
 }
 
@@ -80,7 +68,9 @@ export interface IDietPlan {
 
 export interface IDiaryRecord {
   /** Создатель */
-  userId: IUser;
+  userId: IUserWithTargets;
+  /** Дата */
   day: Date;
+  /** Записи еды */
   portions: IPortion[];
 }

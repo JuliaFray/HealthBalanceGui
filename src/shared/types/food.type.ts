@@ -2,11 +2,25 @@ import { MealsOptions } from './diet.type';
 
 export type Unit = 'g' | 'kcal' | 'kJ';
 
+export interface ICompositionRow {
+  _id: string;
+  name: string;
+  weight: number;
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
+  meal?: MealsOptions;
+}
+
 export interface Nutrients {
   calories: number;
   proteins: number;
+  proteinsG: number;
   carbs: number;
+  carbsG: number;
   fats: number;
+  fatsG: number;
   otherNutrients?: {
     calcium: number;
     calcium_100g: number;
@@ -73,20 +87,15 @@ export interface ProductItem {
   nutrients: Nutrients;
 }
 
-export interface FoodList {
-  count: number;
-  page: number;
-  page_count: number;
-  page_size: number;
-  skip: number;
-  products: ProductItem[];
-}
-
 export interface AddFoodType {
-  id: string;
-  day: number;
+  id?: string;
+  day?: number;
+  date?: string;
   foods: {
     id: string;
-    meals: MealsOptions[];
+    meals: {
+      meal: MealsOptions;
+      weightG: number;
+    }[];
   }[];
 }

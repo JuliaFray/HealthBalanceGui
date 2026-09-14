@@ -2,47 +2,28 @@ import React, { FC } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { Logout } from '@mui/icons-material';
-import Login from '@mui/icons-material/Login';
-import { Tooltip, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
+import { Button, Group, Title } from '@mantine/core';
 
 import { useAuth, useWebSocket } from 'shared/context';
 import { useAppDispatch } from 'shared/hook';
 import { pathKeys, SocketEvents } from 'shared/lib';
 import { appActions, authActions } from 'shared/model';
-import { theme } from 'shared/themes';
 
 import styles from './layout.module.scss';
 
 export const BrandLink = () => {
   return (
     <NavLink className={styles.brandlink} to={pathKeys.home()}>
-      <Typography
-        variant='h6'
-        component='div'
-        sx={{ flexGrow: 1 }}
-        color={theme.palette.primary.contrastText}
-      >
-        <IconButton>
+      <Title order={3}>
+        <Group>
           <img
             alt='logo'
-            style={{ height: '40px' }}
+            style={{ height: '50px' }}
             src={`${process.env.PUBLIC_URL}/TransparentMascotLight.png`}
           />
-        </IconButton>
-        <span style={{ verticalAlign: 'middle' }}>HEALTH BALANCE</span>
-      </Typography>
-    </NavLink>
-  );
-};
-
-export const SignInLink: FC = () => {
-  return (
-    <NavLink className={styles.sign} to={pathKeys.login()}>
-      <Tooltip title='Войти'>
-        <Login sx={{ color: theme.palette.primary.contrastText }} />
-      </Tooltip>
+          <span style={{ verticalAlign: 'middle' }}>HEALTH BALANCE</span>
+        </Group>
+      </Title>
     </NavLink>
   );
 };
@@ -60,11 +41,5 @@ export const SignOutLink: FC = () => {
     dispatch(appActions.setUninitialized());
   };
 
-  return (
-    <Tooltip title='Выйти'>
-      <IconButton onClick={handleLogout} className={styles.sign}>
-        <Logout sx={{ color: theme.palette.primary.contrastText }} />
-      </IconButton>
-    </Tooltip>
-  );
+  return <Button onClick={handleLogout}>Выйти из аккаунта</Button>;
 };

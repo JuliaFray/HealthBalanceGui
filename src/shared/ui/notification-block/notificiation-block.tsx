@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import reactStringReplace from 'react-string-replace';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ActionIcon, Button, Divider, Indicator, List, Popover } from '@mantine/core';
+import { Box } from '@mui/material';
+
+import { ActionIcon, Button, Divider, Indicator, List, Popover, Stack } from '@mantine/core';
 
 import { useAuth } from '../../context';
 import { useAppDispatch, useAppSelector } from '../../hook';
@@ -28,9 +30,9 @@ const NotificationItem: React.FC<{ item?: INotifications; text?: string }> = ({ 
   if (!item) {
     return (
       <>
-        <List.Item key={uuidv4()} className={styles.item}>
+        <Box key={uuidv4()} className={styles.item}>
           {text}
-        </List.Item>
+        </Box>
         <Divider />
       </>
     );
@@ -50,11 +52,11 @@ const NotificationItem: React.FC<{ item?: INotifications; text?: string }> = ({ 
   if (item.type === NotificationTypes.FOLLOW || item.type === NotificationTypes.MSG) {
     return (
       <>
-        <List.Item key={uuidv4()} className={styles.item}>
-          {reactStringReplace(item.msg, '%s', (match, i) => (
+        <Box key={uuidv4()} className={styles.item}>
+          {reactStringReplace(item.msg, '%s', () => (
             <Link to={pathKeys.user.byId({ id: item.fromId })}>{item.from}</Link>
           ))}
-        </List.Item>
+        </Box>
         <Divider />
       </>
     );
@@ -63,11 +65,11 @@ const NotificationItem: React.FC<{ item?: INotifications; text?: string }> = ({ 
   if (item.type === NotificationTypes.FRIEND) {
     return (
       <>
-        <List.Item key={uuidv4()} className={styles.item}>
-          {reactStringReplace(item.msg, '%s', (match, i) => (
+        <Box key={uuidv4()} className={styles.item}>
+          {reactStringReplace(item.msg, '%s', () => (
             <Link to={pathKeys.user.byId({ id: item.fromId })}>{item.from}</Link>
           ))}
-          <List.Item className={styles.subItem}>
+          <Box className={styles.subItem}>
             <Button
               size='small'
               variant='outlined'
@@ -85,16 +87,16 @@ const NotificationItem: React.FC<{ item?: INotifications; text?: string }> = ({ 
             >
               Принять
             </Button>
-          </List.Item>
-        </List.Item>
+          </Box>
+        </Box>
         <Divider />
       </>
     );
   }
   return (
-    <List.Item key={uuidv4()} className={styles.item}>
+    <Box key={uuidv4()} className={styles.item}>
       Уведомлений нет
-    </List.Item>
+    </Box>
   );
 };
 
@@ -102,20 +104,9 @@ export const NotificationIcon = () => {
   const notifs = useAppSelector(appSelector.getAppAllNotifications);
 
   if (!notifs || !notifs.length) {
-    return <BellIcon size={32} weight='light' />;
+    return <BellIcon size={24} weight='light' color='white' />;
   }
-  return (
-    <Indicator
-      style={{ width: 'fit-content', margin: '0 auto' }}
-      label={notifs.length}
-      position='bottom-end'
-      autoContrast
-      processing
-      color='white'
-    >
-      <BellRingingIcon size={32} weight='fill' color='white' />
-    </Indicator>
-  );
+  return <BellRingingIcon size={24} weight='fill' color='white' />;
 };
 
 export const NotificationBlock: React.FC = () => {
@@ -144,23 +135,28 @@ export const NotificationBlock: React.FC = () => {
       onChange={setOpened}
     >
       <Popover.Target>
-        <ActionIcon id='ntf' onClick={onShowNotification} aria-label='notifications'>
+        <ActionIcon
+          id='ntf'
+          onClick={onShowNotification}
+          aria-label='notifications'
+          variant='transparent'
+        >
           <NotificationIcon />
         </ActionIcon>
       </Popover.Target>
 
       <Popover.Dropdown bg='var(--mantine-color-body)'>
-        <List spacing='xs' size='sm' center>
+        <Stack>
           {notifications.length ? (
             notifications.map((it: INotifications) => <NotificationItem key={uuidv4()} item={it} />)
           ) : (
             <NotificationItem key={uuidv4()} text='Уведомлений нет' />
           )}
 
-          <Button className={styles.btn} onClick={handleReadAll}>
+          <Button className={styles.btn} onClick={handleReadAll} disabled={!notifications.length}>
             Отметить все прочитанными
           </Button>
-        </List>
+        </Stack>
       </Popover.Dropdown>
     </Popover>
   );

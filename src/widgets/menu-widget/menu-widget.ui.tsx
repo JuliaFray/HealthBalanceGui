@@ -16,6 +16,8 @@ import { useAuth } from 'shared/context';
 import { pathKeys } from 'shared/lib';
 import { UserButton } from 'shared/ui';
 
+import { SignOutLink } from '../../app/layouts/layout.ui';
+
 import classes from './NavbarSimple.module.scss';
 
 type IItem = {
@@ -95,6 +97,7 @@ export const MenuWidget: FC<MenuWidgetProps> = ({ close }) => {
         </Group>
         {links}
       </div>
+      <SignOutLink />
     </nav>
   );
 };

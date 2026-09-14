@@ -1,2 +1,1 @@
-export { AvatarSelection } from './avatar-selection';
 export { SettingsAccordion } from './settings-accordion';

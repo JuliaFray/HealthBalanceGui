@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Form, Formik } from 'formik';
 import { Link, Navigate } from 'react-router-dom';
 
-import { Box, Button, LoadingOverlay, Paper, Stack, Title } from '@mantine/core';
+import { Button, LoadingOverlay, Paper, Stack, Title } from '@mantine/core';
 
 import { useAuth } from 'shared/context';
 import { useLastLocation } from 'shared/hook';
@@ -21,59 +21,62 @@ export const LoginPage: FC = () => {
   const { formikConfig, validationSchema, isFetching, handleSubmit, handleChange } = useLogin();
 
   if (isAuth) {
-    return <Navigate to={currentPath || pathKeys.home()} />;
+    const path =
+      currentPath && ![pathKeys.login(), pathKeys.register()].includes(currentPath)
+        ? currentPath
+        : pathKeys.home();
+    return <Navigate to={path} />;
   }
 
   return (
     <Stack style={{ display: 'flex' }}>
       <img
         alt='logo'
-        style={{ width: 500, alignSelf: 'center', marginBlock: '-120px' }}
+        style={{ width: '40em', alignSelf: 'center', marginBlock: '-10em' }}
         src={`${process.env.PUBLIC_URL}/TransparentLogo.png`}
       />
 
       <Paper classNames={{ root: styles.root }}>
-        <Box pos='relative'>
-          <LoadingOverlay
-            visible={isFetching}
-            zIndex={1000}
-            overlayProps={{ radius: 'sm', blur: 2 }}
-            loaderProps={{ color: 'teal', type: 'bars' }}
-          />
-          <Stack gap='lg'>
-            <Title classNames={{ root: styles.title }} order={3}>
-              Войти в аккаунт
-            </Title>
+        <LoadingOverlay
+          visible={isFetching}
+          zIndex={1000}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+          loaderProps={{ color: 'teal', type: 'bars' }}
+        />
+        <Stack gap='lg'>
+          <Title classNames={{ root: styles.title }} order={3}>
+            Войти в аккаунт
+          </Title>
 
-            <Formik
-              onSubmit={(values: ILoginData) => handleSubmit(values)}
-              validationSchema={validationSchema}
-              {...formikConfig}
-            >
-              {({ isValid }) => (
-                <Form onChange={handleChange}>
-                  <Stack gap='xs'>
-                    <InputWrapper label='Логин или Email' name='email' />
-                    <InputWrapper label='Пароль' mode='password' name='password' />
-                  </Stack>
+          <Formik
+            onSubmit={(values: ILoginData) => handleSubmit(values)}
+            validationSchema={validationSchema}
+            {...formikConfig}
+          >
+            {({ isValid }) => (
+              <Form onChange={handleChange}>
+                <Stack gap='xs'>
+                  <InputWrapper label='Логин или Email' name='email' />
+                  <InputWrapper label='Пароль' mode='password' name='password' />
 
                   <Button
                     type='submit'
                     size='compact-lg'
+                    mt={10}
                     disabled={!isValid || isFetching}
                     fullWidth
                   >
                     Войти
                   </Button>
-                </Form>
-              )}
-            </Formik>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
 
-            <Link className={styles.link} to={pathKeys.register()}>
-              Создать аккаунт
-            </Link>
-          </Stack>
-        </Box>
+          <Link className={styles.link} to={pathKeys.register()}>
+            Создать аккаунт
+          </Link>
+        </Stack>
       </Paper>
     </Stack>
   );

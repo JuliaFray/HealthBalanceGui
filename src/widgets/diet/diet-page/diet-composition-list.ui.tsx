@@ -6,19 +6,9 @@ import { ActionIcon, Box, Group, Input, Select, Table } from '@mantine/core';
 
 import { useRemoveFoodFromDietPlanMutation } from 'shared/api';
 import { dayOptions } from 'shared/constants';
-import { IDietPlan, IPortion } from 'shared/types';
+import { ICompositionRow, IDietPlan, IPortion } from 'shared/types';
 
 import { DietStats } from './diet-stats.ui';
-
-interface ICompositionRow {
-  _id: string;
-  name: string;
-  weight: number;
-  calories: number;
-  protein: number;
-  fat: number;
-  carbs: number;
-}
 
 const createListData = (portion: IPortion, summaryWeight: number): ICompositionRow => {
   const {

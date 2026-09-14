@@ -14,7 +14,7 @@ const statColor = {
   carbs: 'violet',
 };
 
-export const calculateStats = (target: Nutrients, fact: Nutrients): IDietRingStat[] => {
+export const calculateStats = (target?: Nutrients, fact?: Nutrients): IDietRingStat[] => {
   if (!target || !fact) {
     return Object.keys(statLabel).map((tk) => ({
       label: statLabel[tk],
@@ -23,10 +23,13 @@ export const calculateStats = (target: Nutrients, fact: Nutrients): IDietRingSta
       color: statColor[tk],
     }));
   }
+
   return Object.keys(statLabel).map((tk) => ({
     label: statLabel[tk],
-    stat: Math.round((fact[tk] * 100) / target[tk]).toString(),
-    progress: (fact[tk] * 100) / target[tk],
+    stat: target[tk]
+      ? `${Math.round((fact[tk] * 100) / (target[`${tk}G`] || target[`${tk}`])).toString()} %`
+      : null,
+    progress: (fact[tk] * 100) / target[tk] || 0,
     color: statColor[tk],
   }));
 };

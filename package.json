@@ -16,8 +16,6 @@
     "@mantine/nprogress": "^8.3.18",
     "@mui/icons-material": "5.18.0",
     "@mui/material": "5.18.0",
-    "@mui/x-charts": "6.19.8",
-    "@mui/x-date-pickers": "^7.1.0",
     "@phosphor-icons/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.2.5",
     "async-mutex": "^0.3.2",

@@ -20,13 +20,14 @@ const mutex = new Mutex();
 
 const baseQuery = (customBaseUrl?: string, validateStatus?: any) =>
   fetchBaseQuery({
-    baseUrl: `${baseUrl}${customBaseUrl || ''}`,
+    baseUrl: `${baseUrl}${customBaseUrl || 'api'}`,
     prepareHeaders: async (headers) => {
       const token = window.localStorage.getItem('token');
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
       headers.set('Access-Control-Allow-Origin', `*`);
+      headers.set('x-vercel-protection-bypass', process.env.VERCEL || '');
       return headers;
     },
     validateStatus,

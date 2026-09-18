@@ -102,11 +102,11 @@ export const DietStats: FC<Props> = ({ plan, portions, currentDay, rating }) => 
         <Grid.Col span={8}>
           <Group wrap='nowrap'>
             <Progress
-              value={calcPercent(plan.proteins, fact.proteins)}
-              color={getColor(fact.proteins / plan.proteins)}
+              value={calcPercent(plan.proteinsG, fact.proteins)}
+              color={getColor(fact.proteins / plan.proteinsG)}
               className={styles.stat}
             />
-            <Text className={styles.percent}>{calcPercent(plan.proteins, fact.proteins)} %</Text>
+            <Text className={styles.percent}>{calcPercent(plan.proteinsG, fact.proteins)} %</Text>
           </Group>
         </Grid.Col>
       </Grid>
@@ -118,11 +118,11 @@ export const DietStats: FC<Props> = ({ plan, portions, currentDay, rating }) => 
         <Grid.Col span={8}>
           <Group wrap='nowrap'>
             <Progress
-              value={calcPercent(plan.fats, fact.fats)}
-              color={getColor(fact.fats / plan.fats)}
+              value={calcPercent(plan.fatsG, fact.fats)}
+              color={getColor(fact.fats / plan.fatsG)}
               className={styles.stat}
             />
-            <Text className={styles.percent}>{calcPercent(plan.fats, fact.fats)} %</Text>
+            <Text className={styles.percent}>{calcPercent(plan.fatsG, fact.fats)} %</Text>
           </Group>
         </Grid.Col>
       </Grid>
@@ -134,11 +134,11 @@ export const DietStats: FC<Props> = ({ plan, portions, currentDay, rating }) => 
         <Grid.Col span={8}>
           <Group wrap='nowrap'>
             <Progress
-              value={calcPercent(plan.carbs, fact.carbs)}
-              color={getColor(fact.carbs / plan.carbs)}
+              value={calcPercent(plan.carbsG, fact.carbs)}
+              color={getColor(fact.carbs / plan.carbsG)}
               className={styles.stat}
             />
-            <Text className={styles.percent}>{calcPercent(plan.carbs, fact.carbs)} %</Text>
+            <Text className={styles.percent}>{calcPercent(plan.carbsG, fact.carbs)} %</Text>
           </Group>
         </Grid.Col>
       </Grid>

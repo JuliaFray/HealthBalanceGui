@@ -9,13 +9,13 @@ import customFetchBase from './custom-fetch-base';
 const baseUrl = 'posts';
 export const postAPI = {
   getPopularTags() {
-    return instance.get<GenericResponseType<TChipData[]>>(`tags`).then((response) => {
+    return instance.get<GenericResponseType<TChipData[]>>(`tags/tags`).then((response) => {
       return response.data;
     });
   },
 
   getPopularAuthors() {
-    return instance.get<GenericResponseType<TChipData[]>>(`authors`).then((response) => {
+    return instance.get<GenericResponseType<TChipData[]>>(`tags/authors`).then((response) => {
       return response.data;
     });
   },
